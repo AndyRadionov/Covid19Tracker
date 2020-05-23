@@ -10,11 +10,28 @@ import UIKit
 
 class CountrySummaryViewController: UIViewController {
 
+    @IBOutlet weak var countryLabel: UILabel!
+    @IBOutlet weak var totalConfirmedLabel: UILabel!
+    @IBOutlet weak var totalDeathsLabel: UILabel!
+    @IBOutlet weak var totalRecoveredLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var newConfirmedLabel: UILabel!
+    @IBOutlet weak var newDeathsLabel: UILabel!
+    @IBOutlet weak var newRecoveredLabel: UILabel!
+    
     var countrySummary: CountrySummary!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        countryLabel.text = countrySummary.country
+        totalConfirmedLabel.text = "\(countrySummary.totalConfirmed)"
+        totalDeathsLabel.text = "\(countrySummary.totalDeaths)"
+        totalRecoveredLabel.text = "\(countrySummary.totalRecovered)"
+        dateLabel.text = "\(countrySummary.date)"
+        newConfirmedLabel.text = "\(countrySummary.newConfirmed)"
+        newDeathsLabel.text = "\(countrySummary.newDeaths)"
+        newRecoveredLabel.text = "\(countrySummary.newRecovered)"
     }
 
 }

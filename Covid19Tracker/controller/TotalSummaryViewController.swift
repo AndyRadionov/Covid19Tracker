@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TotalStatisticsViewController: UIViewController {
+class TotalSummaryViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

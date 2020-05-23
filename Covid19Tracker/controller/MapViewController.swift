@@ -52,8 +52,12 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let controller = segue.destination as! CountrySummaryViewController
-        controller.countrySummary = selectedCountry
+        if segue.identifier == "showCountrySummary" {
+            let controller = segue.destination as! CountrySummaryViewController
+            controller.countrySummary = selectedCountry
+        } else if segue.identifier == "showTotalSummary" {
+            //let controller = segue.destination as! TotalSummaryViewController
+        }
     }
 
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
