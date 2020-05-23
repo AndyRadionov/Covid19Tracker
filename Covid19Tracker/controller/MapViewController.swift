@@ -12,14 +12,22 @@ import MapKit
 class MapViewController: UIViewController, MKMapViewDelegate {
 
     @IBOutlet weak var mapView: MKMapView!
-    var countriesCoordinate: [String: [String]]!
+    var countriesLocation: [String: [String]]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         ApiClient.loadSummary { (summary, error) in
             self.setLocations(countriesSummary: summary!.countries)
         }
-        loadCountriesCoordinate()
+        CountriesLocationLoader.loadCountriesCoordinate { [weak self] (countriesLocation, error) in
+            guard let self = self else {
+                return
+            }
+            if error != nil {
+                fatalError(error!.localizedDescription)
+            }
+            self.countriesLocation = countriesLocation
+        }
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -67,7 +75,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             if countrySummary.totalConfirmed < 100 || countrySummary.totalRecovered == countrySummary.totalConfirmed {
                 continue
             }
-            guard let coordinates = countriesCoordinate[countrySummary.countryCode.lowercased()] else { continue }
+            guard let coordinates = countriesLocation[countrySummary.countryCode.lowercased()] else { continue }
             let lat = CLLocationDegrees(coordinates[0])
             let long = CLLocationDegrees(coordinates[1])
             let coordinate = CLLocationCoordinate2D(latitude: lat!, longitude: long!)
@@ -82,11 +90,4 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         self.mapView.removeAnnotations(self.mapView.annotations)
         self.mapView.addAnnotations(annotations)
     }
-    
-    private func loadCountriesCoordinate() {
-        let url = Bundle.main.url(forResource: "countries_location", withExtension: "json")!
-        let data = try! Data(contentsOf: url)
-        countriesCoordinate = try! JSONDecoder().decode([String: [String]].self, from: data)
-    }
 }
-

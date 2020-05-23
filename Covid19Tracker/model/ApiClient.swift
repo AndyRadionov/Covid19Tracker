@@ -29,21 +29,7 @@ class ApiClient {
         }
     }
     
-    enum ApiError: LocalizedError {
-        case networkError
-        case decodeError
-        
-        var localizedDescription: String {
-            switch self {
-            case .networkError:
-                return "Network Error\nPlease try Again later"
-            case .decodeError:
-                return "Something went wrong\nPlease Try Again later"
-            }
-        }
-    }
-    
-    class func loadSummary(completion: @escaping (SummaryResponse?, ApiError?) -> Void) {
+    class func loadSummary(completion: @escaping (SummaryResponse?, AppError?) -> Void) {
         
         makeGETRequest(url: Endpoints.summary.url, responseType: SummaryResponse.self) { (summary, error) in
             if error != nil {
@@ -55,7 +41,7 @@ class ApiClient {
     }
     
     
-    private class func makeGETRequest<ResponseType: Decodable>(url: URL, responseType: ResponseType.Type, completion: @escaping (ResponseType?, ApiError?) -> Void) {
+    private class func makeGETRequest<ResponseType: Decodable>(url: URL, responseType: ResponseType.Type, completion: @escaping (ResponseType?, AppError?) -> Void) {
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
             guard let data = data else {
                 completion(nil, .networkError)
