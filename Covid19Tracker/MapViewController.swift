@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class MapViewController: UIViewController {
+class MapViewController: UIViewController, MKMapViewDelegate {
 
     @IBOutlet weak var mapView: MKMapView!
     var countriesCoordinate: [String: [String]]!
@@ -24,12 +24,13 @@ class MapViewController: UIViewController {
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         let reuseId = "pin"
-        var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId) as? MKPinAnnotationView
+        var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId) as? MKMarkerAnnotationView
         if pinView == nil {
-            pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
-            pinView!.canShowCallout = true
-            pinView!.pinTintColor = .red
-            pinView!.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+            pinView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+            pinView!.glyphText = annotation.subtitle!
+            pinView!.subtitleVisibility = .hidden
+            pinView!.markerTintColor = getPinColor(Int(annotation.subtitle!!)!)
+            pinView!.canShowCallout = false
         } else {
             pinView!.annotation = annotation
         }
@@ -46,6 +47,19 @@ class MapViewController: UIViewController {
 //        }
     }
     
+    private func getPinColor(_ casesNumber: Int) -> UIColor {
+        switch casesNumber {
+        case 0...1000:
+            return .green
+        case 1000...10000:
+            return .yellow
+        case 10000...50000:
+            return .orange
+        default:
+            return .red
+        }
+    }
+    
     private func setLocations(countriesSummary: [CountrySummary]) {
         var annotations = [MKPointAnnotation]()
         
@@ -60,8 +74,9 @@ class MapViewController: UIViewController {
             
             let annotation = MKPointAnnotation()
             annotation.coordinate = coordinate
-            annotation.title = countrySummary.country
             
+            annotation.title = countrySummary.country
+            annotation.subtitle = "\(countrySummary.totalConfirmed)"
             annotations.append(annotation)
         }
         self.mapView.removeAnnotations(self.mapView.annotations)
