@@ -19,6 +19,9 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="listview-deselected" selectedImage="listview-selected" id="v8j-0x-6dM"/>
                     <navigationItem key="navigationItem" id="Cih-za-8O1"/>
+                    <connections>
+                        <segue destination="pmE-pg-Jxt" kind="show" identifier="showCountrySummary" id="Smq-Pn-kxp"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n6V-tD-upq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -97,11 +100,28 @@
                     </navigationItem>
                     <connections>
                         <outlet property="mapView" destination="ZjS-kf-Ick" id="XpB-rN-INr"/>
+                        <segue destination="pmE-pg-Jxt" kind="show" identifier="showCountrySummary" id="s0m-uu-EOM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="320" y="-293"/>
+        </scene>
+        <!--Country Summary View Controller-->
+        <scene sceneID="mQh-cD-y41">
+            <objects>
+                <viewController id="pmE-pg-Jxt" customClass="CountrySummaryViewController" customModule="Covid19Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="iOh-mc-coX">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="tEH-OO-odx"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="v8U-YX-ImD"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rkt-1J-qJC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1407" y="-293"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Lcx-lY-xae">
@@ -121,6 +141,9 @@
             <point key="canvasLocation" x="-413" y="-293"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="Smq-Pn-kxp"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="arrow.clockwise" catalog="system" width="115" height="128"/>
         <image name="chart.pie.fill" catalog="system" width="128" height="124"/>

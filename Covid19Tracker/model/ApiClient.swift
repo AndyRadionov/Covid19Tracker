@@ -10,8 +10,6 @@ import Foundation
 
 class ApiClient {
     
-    private static var decoder: JSONDecoder = initDecoder()
-    
     enum Endpoints {
         static let base = "https://api.covid19api.com"
         
@@ -48,7 +46,7 @@ class ApiClient {
                 return
             }
             do {
-                let responseObject = try decoder.decode(ResponseType.self, from: data)
+                let responseObject = try initDecoder().decode(ResponseType.self, from: data)
                 DispatchQueue.main.async {
                     completion(responseObject, nil)
                 }
@@ -60,7 +58,7 @@ class ApiClient {
     }
     
     private static func initDecoder() -> JSONDecoder {
-        decoder = JSONDecoder()
+        let decoder = JSONDecoder()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
         decoder.dateDecodingStrategy = .formatted(dateFormatter)

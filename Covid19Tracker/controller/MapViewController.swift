@@ -13,11 +13,16 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 
     @IBOutlet weak var mapView: MKMapView!
     var countriesLocation: [String: [String]]!
+    var globalSummary: GlobalSummary!
+    var countriesSummary: [CountrySummary]!
+    var selectedCountry: CountrySummary!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         ApiClient.loadSummary { (summary, error) in
-            self.setLocations(countriesSummary: summary!.countries)
+            self.globalSummary = summary!.global
+            self.countriesSummary = summary!.countries
+            self.setLocations(countriesSummary: self.countriesSummary)
         }
         CountriesLocationLoader.loadCountriesCoordinate { [weak self] (countriesLocation, error) in
             guard let self = self else {
@@ -45,14 +50,18 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
         return pinView
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let controller = segue.destination as! CountrySummaryViewController
+        controller.countrySummary = selectedCountry
+    }
 
-    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-//        if control == view.rightCalloutAccessoryView {
-//            let app = UIApplication.shared
-//            if let toOpen = view.annotation?.subtitle! {
-//                app.open(URL(string: toOpen)!)
-//            }
-//        }
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        let countryName = view.annotation!.title
+        selectedCountry = countriesSummary.first { (countrySummary) -> Bool in
+            return countrySummary.country == countryName
+        }
+        performSegue(withIdentifier: "showCountrySummary", sender: self)
     }
     
     private func getPinColor(_ casesNumber: Int) -> UIColor {
