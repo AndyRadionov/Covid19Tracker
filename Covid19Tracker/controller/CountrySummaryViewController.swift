@@ -23,12 +23,14 @@ class CountrySummaryViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let dateFormatterGet = DateFormatter()
+        dateFormatterGet.dateFormat = "dd-MM-yyyy"
         
         countryLabel.text = countrySummary.country
         totalConfirmedLabel.text = "\(countrySummary.totalConfirmed)"
         totalDeathsLabel.text = "\(countrySummary.totalDeaths)"
         totalRecoveredLabel.text = "\(countrySummary.totalRecovered)"
-        dateLabel.text = "\(countrySummary.date)"
+        dateLabel.text = dateFormatterGet.string(from: countrySummary.date)
         newConfirmedLabel.text = "\(countrySummary.newConfirmed)"
         newDeathsLabel.text = "\(countrySummary.newDeaths)"
         newRecoveredLabel.text = "\(countrySummary.newRecovered)"
