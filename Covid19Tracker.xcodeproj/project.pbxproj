@@ -45,6 +45,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A1A803722478EC7500B26EB6 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				A1D6CDB224772FF900E2688E /* Main.storyboard */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
 		A1D6CDA024772FF900E2688E = {
 			isa = PBXGroup;
 			children = (
@@ -64,12 +72,12 @@
 		A1D6CDAB24772FF900E2688E /* Covid19Tracker */ = {
 			isa = PBXGroup;
 			children = (
+				A1A803722478EC7500B26EB6 /* view */,
 				A1D6CDC02477308200E2688E /* model */,
 				A1D6CDAC24772FF900E2688E /* AppDelegate.swift */,
 				A1D6CDAE24772FF900E2688E /* SceneDelegate.swift */,
 				A1D6CDB024772FF900E2688E /* MapViewController.swift */,
 				A1D6CDC52477380100E2688E /* assets */,
-				A1D6CDB224772FF900E2688E /* Main.storyboard */,
 				A1D6CDBA24772FFB00E2688E /* Info.plist */,
 			);
 			path = Covid19Tracker;
