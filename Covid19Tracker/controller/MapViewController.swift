@@ -27,14 +27,19 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 fatalError(error!.localizedDescription)
             }
             self.countriesLocation = countriesLocation
-        }
-        ApiClient.loadSummary { [weak self]  (summary, error) in
-            guard let self = self else {
-                return
+            ApiClient.loadSummary { [weak self]  (summary, error) in
+                guard let self = self else {
+                    return
+                }
+                self.globalSummary = summary!.global
+                self.countriesSummary = summary!.countries
+                self.setLocations(countriesSummary: summary!.countries)
+                UserDefaultsManager.saveLastUpdateDate(date: summary!.date)
             }
-            self.globalSummary = summary!.global
-            self.countriesSummary = summary!.countries
-            self.setLocations(countriesSummary: self.countriesSummary)
+        }
+        
+        if let region = UserDefaultsManager.loadMapState() {
+            mapView.region = region
         }
     }
     
@@ -75,6 +80,10 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             }
             performSegue(withIdentifier: "showCountrySummary", sender: self)
         }
+    }
+    
+    func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
+        UserDefaultsManager.saveMapState(region: mapView.region)
     }
     
     private func getPinColor(_ casesNumber: Int) -> UIColor {
