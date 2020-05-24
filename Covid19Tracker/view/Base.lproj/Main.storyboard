@@ -49,11 +49,17 @@
                                     <outlet property="delegate" destination="WI6-cF-Zhx" id="vFW-xY-O3j"/>
                                 </connections>
                             </tableView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="0c1-dz-5om">
+                                <rect key="frame" x="188.5" y="432" width="37" height="37"/>
+                                <color key="color" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="NkP-lX-xSZ" firstAttribute="leading" secondItem="3El-UP-sle" secondAttribute="leading" id="6Xk-0U-jzK"/>
+                            <constraint firstItem="0c1-dz-5om" firstAttribute="centerY" secondItem="3El-UP-sle" secondAttribute="centerY" id="6fA-2A-AMh"/>
                             <constraint firstItem="NkP-lX-xSZ" firstAttribute="top" secondItem="3El-UP-sle" secondAttribute="top" id="I3u-cb-eKa"/>
+                            <constraint firstItem="0c1-dz-5om" firstAttribute="centerX" secondItem="3El-UP-sle" secondAttribute="centerX" id="VHm-7Z-hWK"/>
                             <constraint firstItem="3El-UP-sle" firstAttribute="bottom" secondItem="NkP-lX-xSZ" secondAttribute="bottom" id="cMJ-65-IOt"/>
                             <constraint firstItem="3El-UP-sle" firstAttribute="trailing" secondItem="NkP-lX-xSZ" secondAttribute="trailing" id="lHo-ia-dQ2"/>
                         </constraints>
@@ -75,6 +81,10 @@
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
+                        <outlet property="activityIndicator" destination="0c1-dz-5om" id="Vj6-mr-uqS"/>
+                        <outlet property="globalSummaryButton" destination="K0o-be-Dr9" id="qCt-pT-ee5"/>
+                        <outlet property="refreshButton" destination="uQP-Ch-Smn" id="IO7-s9-Jji"/>
+                        <outlet property="tabBarView" destination="v8j-0x-6dM" id="7Fq-78-SXw"/>
                         <outlet property="tableView" destination="NkP-lX-xSZ" id="bkg-NQ-RDz"/>
                         <segue destination="pmE-pg-Jxt" kind="show" identifier="showCountrySummary" id="Smq-Pn-kxp"/>
                     </connections>
@@ -167,7 +177,7 @@
                             </mapView>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="Pz8-hE-wBr">
                                 <rect key="frame" x="188.5" y="432" width="37" height="37"/>
-                                <color key="backgroundColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="color" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -418,8 +428,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="s0m-uu-EOM"/>
-        <segue reference="oGC-Ux-Too"/>
+        <segue reference="Smq-Pn-kxp"/>
+        <segue reference="EAb-6A-BHF"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="arrow.clockwise" catalog="system" width="115" height="128"/>

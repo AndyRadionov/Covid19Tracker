@@ -15,8 +15,8 @@ class BaseCountriesViewController: UIViewController {
     var countriesSummary: [CountrySummary]?
     var selectedCountrySummary: CountrySummary?
     var countriesUiUpdater: CountriesUiUpdater!
+    var fetchedResultsController: NSFetchedResultsController<CountrySummary>!
     private var countriesLocation: [String: [String]]!
-    private var fetchedResultsController: NSFetchedResultsController<CountrySummary>!
     
     var dataController: DataController {
         let object = UIApplication.shared.delegate

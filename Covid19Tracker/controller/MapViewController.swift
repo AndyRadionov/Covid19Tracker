@@ -23,12 +23,6 @@ class MapViewController: BaseCountriesViewController, CountriesUiUpdater {
         countriesUiUpdater = self
         initMap()
     }
-    
-    private func initMap() {
-        if let region = UserDefaultsManager.loadMapState() {
-            mapView.region = region
-        }
-    }
 
     @IBAction func refreshTapped(_ sender: Any) {
         loadDataFromNetwork()
@@ -65,6 +59,12 @@ class MapViewController: BaseCountriesViewController, CountriesUiUpdater {
         mapView.isZoomEnabled = enable
         mapView.isScrollEnabled = enable
         mapView.isUserInteractionEnabled = enable
+    }
+    
+    private func initMap() {
+        if let region = UserDefaultsManager.loadMapState() {
+            mapView.region = region
+        }
     }
 }
 
