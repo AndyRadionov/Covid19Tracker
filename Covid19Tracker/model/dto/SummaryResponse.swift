@@ -13,25 +13,3 @@ class SummaryResponse: Codable {
     let countries: [CountrySummary]
     let date: Date
 }
-
-class GlobalSummary: Codable {
-    let newConfirmed: Int
-    let totalConfirmed: Int
-    let newDeaths: Int
-    let totalDeaths: Int
-    let newRecovered: Int
-    let totalRecovered: Int
-}
-
-class CountrySummary: Codable {
-    let country: String
-    let countryCode: String
-    let slug: String
-    let newConfirmed: Int
-    let totalConfirmed: Int
-    let newDeaths: Int
-    let totalDeaths: Int
-    let newRecovered: Int
-    let totalRecovered: Int
-    let date: Date
-}
