@@ -19,11 +19,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        ApiClient.loadSummary { (summary, error) in
-            self.globalSummary = summary!.global
-            self.countriesSummary = summary!.countries
-            self.setLocations(countriesSummary: self.countriesSummary)
-        }
         CountriesLocationLoader.loadCountriesCoordinate { [weak self] (countriesLocation, error) in
             guard let self = self else {
                 return
@@ -32,6 +27,14 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 fatalError(error!.localizedDescription)
             }
             self.countriesLocation = countriesLocation
+        }
+        ApiClient.loadSummary { [weak self]  (summary, error) in
+            guard let self = self else {
+                return
+            }
+            self.globalSummary = summary!.global
+            self.countriesSummary = summary!.countries
+            self.setLocations(countriesSummary: self.countriesSummary)
         }
     }
     

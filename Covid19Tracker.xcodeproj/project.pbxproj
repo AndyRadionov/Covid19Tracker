@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A165EC462479E4D100D511B2 /* CountriesTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A165EC452479E4D100D511B2 /* CountriesTableHeaderView.swift */; };
+		A165EC482479E51E00D511B2 /* CountriesTableHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A165EC472479E51E00D511B2 /* CountriesTableHeaderView.xib */; };
 		A1C050E724794C20001D7145 /* Covid19Tracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A1C050E524794C20001D7145 /* Covid19Tracker.xcdatamodeld */; };
 		A1C050E924794D6E001D7145 /* CountriesLocationLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C050E824794D6E001D7145 /* CountriesLocationLoader.swift */; };
 		A1C050EC24794E58001D7145 /* CountriesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C050EB24794E58001D7145 /* CountriesTableViewController.swift */; };
@@ -28,6 +30,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A165EC452479E4D100D511B2 /* CountriesTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountriesTableHeaderView.swift; sourceTree = "<group>"; };
+		A165EC472479E51E00D511B2 /* CountriesTableHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CountriesTableHeaderView.xib; sourceTree = "<group>"; };
 		A1C050E624794C20001D7145 /* Covid19Tracker.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Covid19Tracker.xcdatamodel; sourceTree = "<group>"; };
 		A1C050E824794D6E001D7145 /* CountriesLocationLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountriesLocationLoader.swift; sourceTree = "<group>"; };
 		A1C050EB24794E58001D7145 /* CountriesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountriesTableViewController.swift; sourceTree = "<group>"; };
@@ -65,6 +69,8 @@
 			isa = PBXGroup;
 			children = (
 				A1D6CDB224772FF900E2688E /* Main.storyboard */,
+				A165EC452479E4D100D511B2 /* CountriesTableHeaderView.swift */,
+				A165EC472479E51E00D511B2 /* CountriesTableHeaderView.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -209,6 +215,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A165EC482479E51E00D511B2 /* CountriesTableHeaderView.xib in Resources */,
 				A1D6CDB924772FFB00E2688E /* LaunchScreen.storyboard in Resources */,
 				A1D6CDC4247736AB00E2688E /* countries_location.json in Resources */,
 				A1D6CDB624772FFB00E2688E /* Assets.xcassets in Resources */,
@@ -224,6 +231,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A1C050F224794F78001D7145 /* AppErrors.swift in Sources */,
+				A165EC462479E4D100D511B2 /* CountriesTableHeaderView.swift in Sources */,
 				A1C050F52479649B001D7145 /* GlobalSummary.swift in Sources */,
 				A1D6CDCA2477447600E2688E /* JSONDecoder.swift in Sources */,
 				A1D6CDB124772FF900E2688E /* MapViewController.swift in Sources */,
