@@ -46,7 +46,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             pinView!.glyphText = annotation.subtitle!
             pinView!.subtitleVisibility = .hidden
             pinView!.markerTintColor = getPinColor(Int(annotation.subtitle!!)!)
-            pinView!.canShowCallout = false
+            pinView!.canShowCallout = true
+            pinView!.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
         } else {
             pinView!.annotation = annotation
         }
@@ -66,12 +67,14 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     @IBAction func refreshTapped(_ sender: Any) {
     }
     
-    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        let countryName = view.annotation!.title
-        selectedCountry = countriesSummary.first { (countrySummary) -> Bool in
-            return countrySummary.country == countryName
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        if control == view.rightCalloutAccessoryView {
+            let countryName = view.annotation!.title
+            selectedCountry = countriesSummary.first { (countrySummary) -> Bool in
+                return countrySummary.country == countryName
+            }
+            performSegue(withIdentifier: "showCountrySummary", sender: self)
         }
-        performSegue(withIdentifier: "showCountrySummary", sender: self)
     }
     
     private func getPinColor(_ casesNumber: Int) -> UIColor {
