@@ -13,6 +13,10 @@ import CoreData
 class MapViewController: BaseCountriesViewController, CountriesUiUpdater {
     
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var globalSummaryButton: UIBarButtonItem!
+    @IBOutlet weak var refreshButton: UIBarButtonItem!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var tabBarView: UITabBarItem!
     
     override func loadView() {
         super.loadView()
@@ -30,10 +34,7 @@ class MapViewController: BaseCountriesViewController, CountriesUiUpdater {
         loadDataFromNetwork()
     }
     
-    func updateUi(_ countriesSummary: [CountrySummary]) {
-        //        photosCollectionView.reloadData()
-        //        activityIndicator.stopAnimating()
-        //        refreshButton.isEnabled = true
+    func updateData(_ countriesSummary: [CountrySummary]) {
         var annotations = [MKPointAnnotation]()
         
         for countrySummary in countriesSummary {
@@ -50,6 +51,20 @@ class MapViewController: BaseCountriesViewController, CountriesUiUpdater {
         }
         self.mapView.removeAnnotations(self.mapView.annotations)
         self.mapView.addAnnotations(annotations)
+    }
+    
+    func enableViews(_ enable: Bool) {
+        if enable {
+            activityIndicator.stopAnimating()
+        } else {
+            activityIndicator.startAnimating()
+        }
+        globalSummaryButton.isEnabled = enable
+        refreshButton.isEnabled = enable
+        tabBarView.isEnabled = enable
+        mapView.isZoomEnabled = enable
+        mapView.isScrollEnabled = enable
+        mapView.isUserInteractionEnabled = enable
     }
 }
 

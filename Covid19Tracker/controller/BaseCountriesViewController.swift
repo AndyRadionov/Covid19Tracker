@@ -41,14 +41,17 @@ class BaseCountriesViewController: UIViewController {
     }
     
     func loadDataFromNetwork() {
+        countriesUiUpdater.enableViews(false)
         CountriesLocationLoader.loadCountriesCoordinate(completion: handleLoadCountriesCoordinate)
     }
     
     private func loadFromDb() {
+        countriesUiUpdater.enableViews(false)
         countriesSummary = fetchedResultsController.fetchedObjects
         if (countriesSummary?.count ?? 0 > 0) {
             globalSummary = countriesSummary![0].globalSummary
-            countriesUiUpdater.updateUi(countriesSummary!)
+            countriesUiUpdater.updateData(countriesSummary!)
+            countriesUiUpdater.enableViews(true)
         }
     }
     
@@ -136,5 +139,6 @@ extension BaseCountriesViewController: NSFetchedResultsControllerDelegate {
 }
 
 protocol CountriesUiUpdater {
-    func updateUi(_ countriesSummary: [CountrySummary])
+    func updateData(_ countriesSummary: [CountrySummary])
+    func enableViews(_ enable: Bool)
 }

@@ -165,12 +165,18 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="ES9-yt-eAm"/>
                                 </connections>
                             </mapView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="Pz8-hE-wBr">
+                                <rect key="frame" x="188.5" y="432" width="37" height="37"/>
+                                <color key="backgroundColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="Pz8-hE-wBr" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="5CN-Mb-VJv"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ZjS-kf-Ick" secondAttribute="trailing" id="C5g-UE-5QH"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="ZjS-kf-Ick" secondAttribute="bottom" id="Fs0-UN-NRb"/>
                             <constraint firstItem="ZjS-kf-Ick" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="HNN-8T-Aj4"/>
+                            <constraint firstItem="Pz8-hE-wBr" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="ZZ4-bL-Ald"/>
                             <constraint firstItem="ZjS-kf-Ick" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="ZzZ-SD-K0c"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -193,7 +199,11 @@
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
+                        <outlet property="activityIndicator" destination="Pz8-hE-wBr" id="DiX-e8-3HG"/>
+                        <outlet property="globalSummaryButton" destination="c6H-op-1zp" id="wCw-Ya-gOt"/>
                         <outlet property="mapView" destination="ZjS-kf-Ick" id="XpB-rN-INr"/>
+                        <outlet property="refreshButton" destination="H1B-QP-nod" id="fV8-Af-eG5"/>
+                        <outlet property="tabBarView" destination="4wn-kj-wxO" id="OCb-qm-An6"/>
                         <segue destination="pmE-pg-Jxt" kind="show" identifier="showCountrySummary" id="s0m-uu-EOM"/>
                     </connections>
                 </viewController>
@@ -408,8 +418,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Smq-Pn-kxp"/>
-        <segue reference="EAb-6A-BHF"/>
+        <segue reference="s0m-uu-EOM"/>
+        <segue reference="oGC-Ux-Too"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="arrow.clockwise" catalog="system" width="115" height="128"/>
