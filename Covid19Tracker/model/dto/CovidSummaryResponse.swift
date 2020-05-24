@@ -8,8 +8,8 @@
 
 import Foundation
 
-class SummaryResponse: Codable {
-    let global: GlobalSummary
-    let countries: [CountrySummary]
+class CovidSummaryResponse: Codable {
+    let global: GlobalSummaryResponse
+    let countries: [CountrySummaryResponse]
     let date: Date
 }

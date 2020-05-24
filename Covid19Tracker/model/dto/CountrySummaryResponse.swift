@@ -1,5 +1,5 @@
 //
-//  GlobalSummary.swift
+//  CountrySummary.swift
 //  Covid19Tracker
 //
 //  Created by Andy on 23.05.2020.
@@ -8,11 +8,15 @@
 
 import Foundation
 
-class GlobalSummary: Codable {
+class CountrySummaryResponse: Codable {
+    let country: String
+    let countryCode: String
+    let slug: String
     let newConfirmed: Int
     let totalConfirmed: Int
     let newDeaths: Int
     let totalDeaths: Int
     let newRecovered: Int
     let totalRecovered: Int
+    let date: Date
 }

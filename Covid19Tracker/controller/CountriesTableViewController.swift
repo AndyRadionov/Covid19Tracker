@@ -12,9 +12,10 @@ class CountriesTableViewController: UIViewController, UITableViewDataSource, UIT
 
     @IBOutlet weak var tableView: UITableView!
     var countriesLocation: [String: [String]]!
-    var globalSummary: GlobalSummary!
-    var countriesSummary: [CountrySummary]?
-    var selectedCountry: CountrySummary!
+    var summary: CovidSummaryResponse!
+    var globalSummary: GlobalSummaryResponse!
+    var countriesSummary: [CountrySummaryResponse]?
+    var selectedCountry: CountrySummaryResponse!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,12 +49,12 @@ class CountriesTableViewController: UIViewController, UITableViewDataSource, UIT
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showCountrySummary" {
-            let controller = segue.destination as! CountrySummaryViewController
-            controller.countrySummary = selectedCountry
-        } else if segue.identifier == "showTotalSummary" {
-            //let controller = segue.destination as! TotalSummaryViewController
-        }
+//        if segue.identifier == "showCountrySummary" {
+//            let controller = segue.destination as! CountrySummaryViewController
+//            controller.countrySummary = selectedCountry
+//        } else if segue.identifier == "showTotalSummary" {
+//            //let controller = segue.destination as! TotalSummaryViewController
+//        }
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

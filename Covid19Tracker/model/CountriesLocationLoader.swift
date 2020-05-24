@@ -17,7 +17,7 @@ class CountriesLocationLoader {
             let countriesLocation = try JSONDecoder().decode([String: [String]].self, from: data)
             completion(countriesLocation, nil)
         } catch {
-            completion([:], .decodeError)
+            completion([:], .commonError)
         }
     }
 }

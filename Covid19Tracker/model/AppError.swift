@@ -10,13 +10,13 @@ import Foundation
 
 enum AppError: LocalizedError {
     case networkError
-    case decodeError
+    case commonError
     
     var localizedDescription: String {
         switch self {
         case .networkError:
             return "Network Error\nPlease try Again later"
-        case .decodeError:
+        case .commonError:
             return "Something went wrong\nPlease Try Again later"
         }
     }

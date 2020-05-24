@@ -8,22 +8,51 @@
 
 import UIKit
 import MapKit
+import CoreData
 
 class MapViewController: UIViewController, MKMapViewDelegate {
 
     @IBOutlet weak var mapView: MKMapView!
     var countriesLocation: [String: [String]]!
-    var globalSummary: GlobalSummary!
-    var countriesSummary: [CountrySummary]!
-    var selectedCountry: CountrySummary!
+    var globalSummary: GlobalSummary?
+    var countriesSummary: [CountrySummary]?
+    var selectedCountrySummary: CountrySummary?
+    var fetchedResultsController: NSFetchedResultsController<CountrySummary>!
+    
+    var dataController: DataController {
+        let object = UIApplication.shared.delegate
+        let appDelegate = object as! AppDelegate
+        return appDelegate.dataController
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        CountriesLocationLoader.loadCountriesCoordinate(completion: handleLoadCountriesCoordinate)
         
+        updateDataIfNeeded()
+        initFetchedResultsController()
+        initMap()
+    }
+    
+    private func initMap() {
         if let region = UserDefaultsManager.loadMapState() {
             mapView.region = region
         }
+    }
+    
+    private func updateDataIfNeeded() {
+        if let lastUpdateDate = UserDefaultsManager.loadLastUpdateDate() {
+            let lastUpdateDatePlusDay = Calendar.current.date(byAdding: .day, value: 1, to: lastUpdateDate)!
+            let currentDate = Date()
+            if lastUpdateDatePlusDay < currentDate {
+                loadDataFromNetwork()
+            }
+        } else {
+            loadDataFromNetwork()
+        }
+    }
+    
+    private func loadDataFromNetwork() {
+        CountriesLocationLoader.loadCountriesCoordinate(completion: handleLoadCountriesCoordinate)
     }
     
     private func handleLoadCountriesCoordinate(countriesLocation: [String: [String]], error: AppError?) {
@@ -34,11 +63,58 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         ApiClient.loadSummary(completion: handleLoadSummary)
     }
     
-    private func handleLoadSummary(summary: SummaryResponse?, error: AppError?) {
-        self.globalSummary = summary!.global
-        self.countriesSummary = summary!.countries
-        self.setLocations(countriesSummary: summary!.countries)
+    private func handleLoadSummary(summary: CovidSummaryResponse?, error: AppError?) {
         UserDefaultsManager.saveLastUpdateDate(date: summary!.date)
+        
+        let globalSummary = GlobalSummary(context: self.dataController.viewContext)
+        globalSummary.date = summary!.date
+        globalSummary.newConfirmed = Int32(summary!.global.newConfirmed)
+        globalSummary.totalConfirmed = Int32(summary!.global.totalConfirmed)
+        globalSummary.newDeaths = Int32(summary!.global.newDeaths)
+        globalSummary.totalDeaths = Int32(summary!.global.totalDeaths)
+        globalSummary.newRecovered = Int32(summary!.global.newRecovered)
+        globalSummary.totalRecovered = Int32(summary!.global.totalRecovered)
+        
+        let countriesSummaryWithLocation = summary!.countries.filter { (countrySummaryResponse) -> Bool in
+            return countriesLocation[countrySummaryResponse.countryCode.lowercased()] != nil
+        }
+        
+        countriesSummaryWithLocation.map { countrySummaryResponse -> CountrySummary in
+            let countrySummary = CountrySummary(context: self.dataController.viewContext)
+            countrySummary.country = countrySummaryResponse.country
+            countrySummary.countryCode = countrySummaryResponse.countryCode
+            countrySummary.date = countrySummaryResponse.date
+            countrySummary.newConfirmed = Int32(countrySummaryResponse.newConfirmed)
+            countrySummary.newDeaths = Int32(countrySummaryResponse.newDeaths)
+            countrySummary.newRecovered = Int32(countrySummaryResponse.newRecovered)
+            countrySummary.totalConfirmed = Int32(countrySummaryResponse.totalConfirmed)
+            countrySummary.totalDeaths = Int32(countrySummaryResponse.totalDeaths)
+            countrySummary.totalRecovered = Int32(countrySummaryResponse.totalRecovered)
+            let countryLocation = countriesLocation[countrySummaryResponse.countryCode.lowercased()]
+            countrySummary.latitude = countryLocation![0]
+            countrySummary.longitude = countryLocation![1]
+            countrySummary.globalSummary = globalSummary
+            return countrySummary
+        }
+        DispatchQueue.main.async {
+            try? self.dataController.viewContext.save()
+        }
+    }
+    
+    fileprivate func initFetchedResultsController() {
+        let fetchRequest: NSFetchRequest<CountrySummary> = CountrySummary.fetchRequest()
+        let predicate = NSPredicate(format: "totalConfirmed > %d", 500)
+        fetchRequest.predicate = predicate
+        let sortDescriptor = NSSortDescriptor(key: "totalConfirmed", ascending: false)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+            
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: dataController.viewContext, sectionNameKeyPath: nil, cacheName: "countriesSummary")
+        fetchedResultsController.delegate = self
+        do {
+            try fetchedResultsController.performFetch()
+        } catch {
+            showErrorAlert(.commonError, self)
+        }
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -61,19 +137,20 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showCountrySummary" {
             let controller = segue.destination as! CountrySummaryViewController
-            controller.countrySummary = selectedCountry
+            controller.countrySummary = selectedCountrySummary
         } else if segue.identifier == "showTotalSummary" {
             //let controller = segue.destination as! TotalSummaryViewController
         }
     }
 
     @IBAction func refreshTapped(_ sender: Any) {
+        loadDataFromNetwork()
     }
     
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         if control == view.rightCalloutAccessoryView {
             let countryName = view.annotation!.title
-            selectedCountry = countriesSummary.first { (countrySummary) -> Bool in
+            selectedCountrySummary = countriesSummary?.first { (countrySummary) -> Bool in
                 return countrySummary.country == countryName
             }
             performSegue(withIdentifier: "showCountrySummary", sender: self)
@@ -101,12 +178,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         var annotations = [MKPointAnnotation]()
         
         for countrySummary in countriesSummary {
-            if countrySummary.totalConfirmed < 100 || countrySummary.totalRecovered == countrySummary.totalConfirmed {
-                continue
-            }
-            guard let coordinates = countriesLocation[countrySummary.countryCode.lowercased()] else { continue }
-            let lat = CLLocationDegrees(coordinates[0])
-            let long = CLLocationDegrees(coordinates[1])
+            let lat = CLLocationDegrees(countrySummary.latitude!)
+            let long = CLLocationDegrees(countrySummary.longitude!)
             let coordinate = CLLocationCoordinate2D(latitude: lat!, longitude: long!)
             
             let annotation = MKPointAnnotation()
@@ -118,5 +191,19 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         }
         self.mapView.removeAnnotations(self.mapView.annotations)
         self.mapView.addAnnotations(annotations)
+    }
+}
+
+extension MapViewController: NSFetchedResultsControllerDelegate {
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        countriesSummary = controller.fetchedObjects as? [CountrySummary]
+        if (countriesSummary?.count ?? 0 > 0) {
+            globalSummary = countriesSummary![0].globalSummary
+            setLocations(countriesSummary: countriesSummary!)
+        }
+        
+//        photosCollectionView.reloadData()
+//        activityIndicator.stopAnimating()
+//        refreshButton.isEnabled = true
     }
 }

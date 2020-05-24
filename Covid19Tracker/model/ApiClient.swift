@@ -27,9 +27,8 @@ class ApiClient {
         }
     }
     
-    class func loadSummary(completion: @escaping (SummaryResponse?, AppError?) -> Void) {
-        
-        makeGETRequest(url: Endpoints.summary.url, responseType: SummaryResponse.self) { (summary, error) in
+    class func loadSummary(completion: @escaping (CovidSummaryResponse?, AppError?) -> Void) {
+        makeGETRequest(url: Endpoints.summary.url, responseType: CovidSummaryResponse.self) { (summary, error) in
             if error != nil {
                 completion(nil, error!)
             } else {
@@ -37,7 +36,6 @@ class ApiClient {
             }
         }
     }
-    
     
     private class func makeGETRequest<ResponseType: Decodable>(url: URL, responseType: ResponseType.Type, completion: @escaping (ResponseType?, AppError?) -> Void) {
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
@@ -51,7 +49,7 @@ class ApiClient {
                     completion(responseObject, nil)
                 }
             } catch {
-                completion(nil, .decodeError)
+                completion(nil, .commonError)
             }
         }
         task.resume()

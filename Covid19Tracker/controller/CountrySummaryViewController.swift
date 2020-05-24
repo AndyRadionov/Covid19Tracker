@@ -30,7 +30,7 @@ class CountrySummaryViewController: UIViewController {
         totalConfirmedLabel.text = "\(countrySummary.totalConfirmed)"
         totalDeathsLabel.text = "\(countrySummary.totalDeaths)"
         totalRecoveredLabel.text = "\(countrySummary.totalRecovered)"
-        dateLabel.text = dateFormatterGet.string(from: countrySummary.date)
+        dateLabel.text = dateFormatterGet.string(from: countrySummary.date!)
         newConfirmedLabel.text = "\(countrySummary.newConfirmed)"
         newDeathsLabel.text = "\(countrySummary.newDeaths)"
         newRecoveredLabel.text = "\(countrySummary.newRecovered)"
