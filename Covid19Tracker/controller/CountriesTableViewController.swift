@@ -44,6 +44,9 @@ class CountriesTableViewController: UIViewController, UITableViewDataSource, UIT
         tableView.register(headerNib, forHeaderFooterViewReuseIdentifier: "CountriesTableHeaderView")
     }
     
+    @IBAction func refreshTapped(_ sender: Any) {
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showCountrySummary" {
             let controller = segue.destination as! CountrySummaryViewController

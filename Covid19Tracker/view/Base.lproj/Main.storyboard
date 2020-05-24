@@ -62,7 +62,11 @@
                     <tabBarItem key="tabBarItem" title="" image="listview-deselected" selectedImage="listview-selected" id="v8j-0x-6dM"/>
                     <navigationItem key="navigationItem" id="Cih-za-8O1">
                         <rightBarButtonItems>
-                            <barButtonItem image="arrow.clockwise" catalog="system" id="uQP-Ch-Smn"/>
+                            <barButtonItem image="arrow.clockwise" catalog="system" id="uQP-Ch-Smn">
+                                <connections>
+                                    <action selector="refreshTapped:" destination="WI6-cF-Zhx" id="pfh-IA-uUr"/>
+                                </connections>
+                            </barButtonItem>
                             <barButtonItem image="chart.pie.fill" catalog="system" id="K0o-be-Dr9">
                                 <connections>
                                     <segue destination="FGh-CU-b01" kind="presentation" identifier="showTotalSummary" modalPresentationStyle="fullScreen" id="EAb-6A-BHF"/>
@@ -176,6 +180,9 @@
                         <rightBarButtonItems>
                             <barButtonItem image="arrow.clockwise" catalog="system" id="H1B-QP-nod" userLabel="Refresh">
                                 <color key="tintColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <action selector="refreshTapped:" destination="BYZ-38-t0r" id="nzR-g1-JSc"/>
+                                </connections>
                             </barButtonItem>
                             <barButtonItem image="chart.pie.fill" catalog="system" id="c6H-op-1zp">
                                 <color key="tintColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

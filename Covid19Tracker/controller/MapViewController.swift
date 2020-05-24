@@ -63,6 +63,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         }
     }
 
+    @IBAction func refreshTapped(_ sender: Any) {
+    }
+    
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         let countryName = view.annotation!.title
         selectedCountry = countriesSummary.first { (countrySummary) -> Bool in
