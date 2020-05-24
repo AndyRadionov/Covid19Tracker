@@ -19,28 +19,26 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        CountriesLocationLoader.loadCountriesCoordinate { [weak self] (countriesLocation, error) in
-            guard let self = self else {
-                return
-            }
-            if error != nil {
-                fatalError(error!.localizedDescription)
-            }
-            self.countriesLocation = countriesLocation
-            ApiClient.loadSummary { [weak self]  (summary, error) in
-                guard let self = self else {
-                    return
-                }
-                self.globalSummary = summary!.global
-                self.countriesSummary = summary!.countries
-                self.setLocations(countriesSummary: summary!.countries)
-                UserDefaultsManager.saveLastUpdateDate(date: summary!.date)
-            }
-        }
+        CountriesLocationLoader.loadCountriesCoordinate(completion: handleLoadCountriesCoordinate)
         
         if let region = UserDefaultsManager.loadMapState() {
             mapView.region = region
         }
+    }
+    
+    private func handleLoadCountriesCoordinate(countriesLocation: [String: [String]], error: AppError?) {
+        if error != nil {
+            fatalError(error!.localizedDescription)
+        }
+        self.countriesLocation = countriesLocation
+        ApiClient.loadSummary(completion: handleLoadSummary)
+    }
+    
+    private func handleLoadSummary(summary: SummaryResponse?, error: AppError?) {
+        self.globalSummary = summary!.global
+        self.countriesSummary = summary!.countries
+        self.setLocations(countriesSummary: summary!.countries)
+        UserDefaultsManager.saveLastUpdateDate(date: summary!.date)
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
