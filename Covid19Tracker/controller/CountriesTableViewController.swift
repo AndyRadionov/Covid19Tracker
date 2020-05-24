@@ -51,9 +51,10 @@ class CountriesTableViewController: UIViewController, UITableViewDataSource, UIT
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 //        if segue.identifier == "showCountrySummary" {
 //            let controller = segue.destination as! CountrySummaryViewController
-//            controller.countrySummary = selectedCountry
-//        } else if segue.identifier == "showTotalSummary" {
-//            //let controller = segue.destination as! TotalSummaryViewController
+//            controller.countrySummary = selectedCountrySummary
+//        } else if segue.identifier == "showGlobalSummary" {
+//            let controller = segue.destination as! GlobalSummaryViewController
+//            controller.globalSummary = globalSummary
 //        }
     }
 

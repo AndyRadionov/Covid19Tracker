@@ -14,7 +14,7 @@
 		A1C050E924794D6E001D7145 /* CountriesLocationLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C050E824794D6E001D7145 /* CountriesLocationLoader.swift */; };
 		A1C050EC24794E58001D7145 /* CountriesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C050EB24794E58001D7145 /* CountriesTableViewController.swift */; };
 		A1C050EE24794E70001D7145 /* CountrySummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C050ED24794E70001D7145 /* CountrySummaryViewController.swift */; };
-		A1C050F024794E8B001D7145 /* TotalSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C050EF24794E8B001D7145 /* TotalSummaryViewController.swift */; };
+		A1C050F024794E8B001D7145 /* GlobalSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C050EF24794E8B001D7145 /* GlobalSummaryViewController.swift */; };
 		A1C050F224794F78001D7145 /* AppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C050F124794F78001D7145 /* AppError.swift */; };
 		A1C050F52479649B001D7145 /* GlobalSummaryResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C050F42479649B001D7145 /* GlobalSummaryResponse.swift */; };
 		A1C050F7247964BC001D7145 /* CountrySummaryResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C050F6247964BC001D7145 /* CountrySummaryResponse.swift */; };
@@ -40,7 +40,7 @@
 		A1C050E824794D6E001D7145 /* CountriesLocationLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountriesLocationLoader.swift; sourceTree = "<group>"; };
 		A1C050EB24794E58001D7145 /* CountriesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountriesTableViewController.swift; sourceTree = "<group>"; };
 		A1C050ED24794E70001D7145 /* CountrySummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountrySummaryViewController.swift; sourceTree = "<group>"; };
-		A1C050EF24794E8B001D7145 /* TotalSummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalSummaryViewController.swift; sourceTree = "<group>"; };
+		A1C050EF24794E8B001D7145 /* GlobalSummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalSummaryViewController.swift; sourceTree = "<group>"; };
 		A1C050F124794F78001D7145 /* AppError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppError.swift; sourceTree = "<group>"; };
 		A1C050F42479649B001D7145 /* GlobalSummaryResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalSummaryResponse.swift; sourceTree = "<group>"; };
 		A1C050F6247964BC001D7145 /* CountrySummaryResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountrySummaryResponse.swift; sourceTree = "<group>"; };
@@ -87,7 +87,7 @@
 				A1D6CDB024772FF900E2688E /* MapViewController.swift */,
 				A1C050EB24794E58001D7145 /* CountriesTableViewController.swift */,
 				A1C050ED24794E70001D7145 /* CountrySummaryViewController.swift */,
-				A1C050EF24794E8B001D7145 /* TotalSummaryViewController.swift */,
+				A1C050EF24794E8B001D7145 /* GlobalSummaryViewController.swift */,
 				A1463E12247AFCA2001F48B3 /* UIViewController+Alert.swift */,
 			);
 			path = controller;
@@ -253,7 +253,7 @@
 				A1D6CDAD24772FF900E2688E /* AppDelegate.swift in Sources */,
 				A1C050EC24794E58001D7145 /* CountriesTableViewController.swift in Sources */,
 				A1C050E924794D6E001D7145 /* CountriesLocationLoader.swift in Sources */,
-				A1C050F024794E8B001D7145 /* TotalSummaryViewController.swift in Sources */,
+				A1C050F024794E8B001D7145 /* GlobalSummaryViewController.swift in Sources */,
 				A1D6CDAF24772FF900E2688E /* SceneDelegate.swift in Sources */,
 				A1C050E724794C20001D7145 /* Covid19Tracker.xcdatamodeld in Sources */,
 				A1D6CDC22477324F00E2688E /* ApiClient.swift in Sources */,

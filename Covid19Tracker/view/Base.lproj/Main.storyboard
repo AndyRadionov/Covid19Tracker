@@ -69,7 +69,7 @@
                             </barButtonItem>
                             <barButtonItem image="chart.pie.fill" catalog="system" id="K0o-be-Dr9">
                                 <connections>
-                                    <segue destination="FGh-CU-b01" kind="presentation" identifier="showTotalSummary" modalPresentationStyle="fullScreen" id="EAb-6A-BHF"/>
+                                    <segue destination="FGh-CU-b01" kind="presentation" identifier="showGlobalSummary" modalPresentationStyle="fullScreen" id="EAb-6A-BHF"/>
                                 </connections>
                             </barButtonItem>
                         </rightBarButtonItems>
@@ -83,16 +83,16 @@
             </objects>
             <point key="canvasLocation" x="319" y="424"/>
         </scene>
-        <!--Total Summary View Controller-->
+        <!--Global Summary View Controller-->
         <scene sceneID="oex-VE-7r3">
             <objects>
-                <viewController id="FGh-CU-b01" customClass="TotalSummaryViewController" customModule="Covid19Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="FGh-CU-b01" customClass="GlobalSummaryViewController" customModule="Covid19Tracker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7lz-bP-p0o">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CTa-d2-ZSg">
-                                <rect key="frame" x="0.0" y="98" width="414" height="44"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                                 <items>
                                     <barButtonItem title="Close" id="YTC-wS-Uxq">
                                         <connections>
@@ -137,7 +137,6 @@
         <!--Navigation Controller-->
         <scene sceneID="QTv-H7-mTk">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="qaR-NO-Y2q" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <navigationController id="GQe-38-dv6" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="listview-deselected" selectedImage="listview-selected" id="6bA-YQ-zVy"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="f8q-jW-fvD">
@@ -148,6 +147,7 @@
                         <segue destination="WI6-cF-Zhx" kind="relationship" relationship="rootViewController" id="b7V-Fq-JQo"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qaR-NO-Y2q" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-413" y="424"/>
         </scene>
@@ -187,7 +187,7 @@
                             <barButtonItem image="chart.pie.fill" catalog="system" id="c6H-op-1zp">
                                 <color key="tintColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
-                                    <segue destination="FGh-CU-b01" kind="presentation" identifier="showTotalSummary" modalPresentationStyle="fullScreen" id="oGC-Ux-Too"/>
+                                    <segue destination="FGh-CU-b01" kind="presentation" identifier="showGlobalSummary" modalPresentationStyle="fullScreen" id="oGC-Ux-Too"/>
                                 </connections>
                             </barButtonItem>
                         </rightBarButtonItems>
@@ -392,7 +392,6 @@
         <!--Navigation Controller-->
         <scene sceneID="Lcx-lY-xae">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="2Cs-Wq-ppg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <navigationController id="xda-Cd-jiX" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="mapview-deselected" selectedImage="mapview-selected" id="ObA-Og-dZl"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="uXN-Cy-CNA">
@@ -403,6 +402,7 @@
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="lW9-c3-1dJ"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2Cs-Wq-ppg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-413" y="-293"/>
         </scene>

@@ -8,8 +8,10 @@
 
 import UIKit
 
-class TotalSummaryViewController: UIViewController {
+class GlobalSummaryViewController: UIViewController {
 
+    var globalSummary: GlobalSummary!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

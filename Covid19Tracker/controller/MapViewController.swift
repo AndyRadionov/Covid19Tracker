@@ -28,8 +28,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        updateDataIfNeeded()
         initFetchedResultsController()
+        updateDataIfNeeded()
         initMap()
     }
     
@@ -45,10 +45,23 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             let currentDate = Date()
             if lastUpdateDatePlusDay < currentDate {
                 loadDataFromNetwork()
+            } else {
+                loadFromDb()
             }
         } else {
             loadDataFromNetwork()
         }
+    }
+    
+    private func loadFromDb() {
+        countriesSummary = fetchedResultsController.fetchedObjects
+        if (countriesSummary?.count ?? 0 > 0) {
+            globalSummary = countriesSummary![0].globalSummary
+            setLocations(countriesSummary: countriesSummary!)
+        }
+        //        photosCollectionView.reloadData()
+        //        activityIndicator.stopAnimating()
+        //        refreshButton.isEnabled = true
     }
     
     private func loadDataFromNetwork() {
@@ -138,8 +151,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         if segue.identifier == "showCountrySummary" {
             let controller = segue.destination as! CountrySummaryViewController
             controller.countrySummary = selectedCountrySummary
-        } else if segue.identifier == "showTotalSummary" {
-            //let controller = segue.destination as! TotalSummaryViewController
+        } else if segue.identifier == "showGlobalSummary" {
+            let controller = segue.destination as! GlobalSummaryViewController
+            controller.globalSummary = globalSummary
         }
     }
 
@@ -195,15 +209,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 }
 
 extension MapViewController: NSFetchedResultsControllerDelegate {
+    
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        countriesSummary = controller.fetchedObjects as? [CountrySummary]
-        if (countriesSummary?.count ?? 0 > 0) {
-            globalSummary = countriesSummary![0].globalSummary
-            setLocations(countriesSummary: countriesSummary!)
-        }
-        
-//        photosCollectionView.reloadData()
-//        activityIndicator.stopAnimating()
-//        refreshButton.isEnabled = true
+        loadFromDb()
     }
 }
