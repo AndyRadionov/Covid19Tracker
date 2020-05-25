@@ -45,6 +45,21 @@ class BaseCountriesViewController: UIViewController {
         CountriesLocationLoader.loadCountriesCoordinate(completion: handleLoadCountriesCoordinate)
     }
     
+    private func clearDb() {
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "GlobalSummary")
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+        DispatchQueue.main.async {
+        
+        do {
+            try self.dataController.viewContext.execute(deleteRequest)
+            try self.dataController.viewContext.save()
+            
+        } catch {
+            fatalError(AppError.commonError.localizedDescription)
+        }
+    }
+    }
+    
     private func loadFromDb() {
         countriesUiUpdater.enableViews(false)
         countriesSummary = fetchedResultsController.fetchedObjects
@@ -78,6 +93,7 @@ class BaseCountriesViewController: UIViewController {
     }
     
     private func handleLoadSummary(summary: CovidSummaryResponse?, error: AppError?) {
+        clearDb()
         UserDefaultsManager.saveLastUpdateDate(date: summary!.date)
         
         let globalSummary = GlobalSummary(context: self.dataController.viewContext)

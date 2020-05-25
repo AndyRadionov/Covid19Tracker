@@ -13,6 +13,11 @@
         <attribute name="totalDeaths" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="totalRecovered" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="globalSummary" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GlobalSummary" inverseName="countriesSummary" inverseEntity="GlobalSummary"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="countryCode"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
     </entity>
     <entity name="GlobalSummary" representedClassName="GlobalSummary" syncable="YES" codeGenerationType="class">
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>

@@ -1,0 +1,16 @@
+PODS:
+  - SMDiagramViewSwift (1.0.1)
+
+DEPENDENCIES:
+  - SMDiagramViewSwift (~> 1.0)
+
+SPEC REPOS:
+  trunk:
+    - SMDiagramViewSwift
+
+SPEC CHECKSUMS:
+  SMDiagramViewSwift: 33606b54a8f40b68db32d13aebe41b31d74a688e
+
+PODFILE CHECKSUM: 4e5f8aebae304d2131991307f75bce751dc3fa0a
+
+COCOAPODS: 1.9.2

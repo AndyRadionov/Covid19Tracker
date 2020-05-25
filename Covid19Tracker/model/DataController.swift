@@ -24,10 +24,9 @@ class DataController {
     
     func configureContexts() {
         backgroundContext = persistentContainer.newBackgroundContext()
-        
         viewContext.automaticallyMergesChangesFromParent = true
         backgroundContext.automaticallyMergesChangesFromParent = true
-        viewContext.mergePolicy = NSMergePolicy.mergeByPropertyStoreTrump
+        viewContext.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
         backgroundContext.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
     }
     
