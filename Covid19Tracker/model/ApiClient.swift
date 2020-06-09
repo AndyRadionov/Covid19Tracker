@@ -39,6 +39,10 @@ class ApiClient {
     
     private class func makeGETRequest<ResponseType: Decodable>(url: URL, responseType: ResponseType.Type, completion: @escaping (ResponseType?, AppError?) -> Void) {
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            if error != nil {
+                completion(nil, .commonError)
+                return
+            }
             guard let data = data else {
                 completion(nil, .networkError)
                 return

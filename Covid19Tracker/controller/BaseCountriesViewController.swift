@@ -46,18 +46,10 @@ class BaseCountriesViewController: UIViewController {
     }
     
     private func clearDb() {
-        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "GlobalSummary")
-        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
         DispatchQueue.main.async {
-        
-        do {
-            try self.dataController.viewContext.execute(deleteRequest)
-            try self.dataController.viewContext.save()
-            
-        } catch {
-            fatalError(AppError.commonError.localizedDescription)
+            self.globalSummary!.removeFromCountriesSummary(NSSet(array: self.countriesSummary!))
+            try? self.dataController.backgroundContext.save()
         }
-    }
     }
     
     private func loadFromDb() {
@@ -93,23 +85,32 @@ class BaseCountriesViewController: UIViewController {
     }
     
     private func handleLoadSummary(summary: CovidSummaryResponse?, error: AppError?) {
+        if error != nil {
+            showErrorAlert(error!, self)
+            countriesUiUpdater.enableViews(true)
+            return
+        }
         clearDb()
         UserDefaultsManager.saveLastUpdateDate(date: summary!.date)
         
-        let globalSummary = GlobalSummary(context: self.dataController.viewContext)
-        globalSummary.date = summary!.date
-        globalSummary.newConfirmed = Int32(summary!.global.newConfirmed)
-        globalSummary.totalConfirmed = Int32(summary!.global.totalConfirmed)
-        globalSummary.newDeaths = Int32(summary!.global.newDeaths)
-        globalSummary.totalDeaths = Int32(summary!.global.totalDeaths)
-        globalSummary.newRecovered = Int32(summary!.global.newRecovered)
-        globalSummary.totalRecovered = Int32(summary!.global.totalRecovered)
+        globalSummary = GlobalSummary(context: self.dataController.viewContext)
+        globalSummary?.date = summary!.date
+        globalSummary?.newConfirmed = Int32(summary!.global.newConfirmed)
+        globalSummary?.totalConfirmed = Int32(summary!.global.totalConfirmed)
+        globalSummary?.newDeaths = Int32(summary!.global.newDeaths)
+        globalSummary?.totalDeaths = Int32(summary!.global.totalDeaths)
+        globalSummary?.newRecovered = Int32(summary!.global.newRecovered)
+        globalSummary?.totalRecovered = Int32(summary!.global.totalRecovered)
+        
+        DispatchQueue.main.async {
+            try? self.dataController.viewContext.save()
+        }
         
         let countriesSummaryWithLocation = summary!.countries.filter { (countrySummaryResponse) -> Bool in
             return countriesLocation[countrySummaryResponse.countryCode.lowercased()] != nil
         }
         
-        countriesSummaryWithLocation.map { countrySummaryResponse -> CountrySummary in
+        countriesSummary = countriesSummaryWithLocation.map { countrySummaryResponse -> CountrySummary in
             let countrySummary = CountrySummary(context: self.dataController.viewContext)
             countrySummary.country = countrySummaryResponse.country
             countrySummary.countryCode = countrySummaryResponse.countryCode
@@ -149,8 +150,11 @@ class BaseCountriesViewController: UIViewController {
 }
 
 extension BaseCountriesViewController: NSFetchedResultsControllerDelegate {
-    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        loadFromDb()
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        if type == .insert {
+            countriesUiUpdater.enableViews(true)
+        }
     }
 }
 
